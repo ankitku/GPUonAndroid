@@ -13,7 +13,7 @@ inline std::string loadProgram(std::string input)
 						(std::istreambuf_iterator<char>()));
 }
 
-void openCLAddMatrices (int *a, int *b, int *c, int *info)
+void openCLAddMatrices (int *a, int *c, int *info)
 {
 
 	LOGI("\n\nStart openCLAddMatrices (i.e., OpenCL on the GPU)");
@@ -42,12 +42,10 @@ void openCLAddMatrices (int *a, int *b, int *c, int *info)
 
 	    // Create memory buffers on the device for each vector
 		cl::Buffer a_mem_obj = cl::Buffer(context, CL_MEM_READ_ONLY, matSize, NULL, &ret);
-		cl::Buffer b_mem_obj = cl::Buffer(context, CL_MEM_READ_ONLY, matSize, NULL, &ret);
 		cl::Buffer c_mem_obj = cl::Buffer(context, CL_MEM_WRITE_ONLY,matSize, NULL, &ret);
 
 	    // Copy the lists A and B to their respective memory buffers
 	    ret = queue.enqueueWriteBuffer(a_mem_obj, CL_TRUE, 0,matSize,a,0,NULL);
-	    ret = queue.enqueueWriteBuffer(b_mem_obj, CL_TRUE, 0,matSize, b, 0, NULL);
 
 		std::string kernelSource = loadProgram("/data/data/com.nkt.compute/app_execdir/matAddKernel.cl");
 
@@ -61,8 +59,7 @@ void openCLAddMatrices (int *a, int *b, int *c, int *info)
 
 	    // Set the arguments of the kernel
 	    ret = kernel.setArg(0, a_mem_obj);
-	    ret = kernel.setArg(1, b_mem_obj);
-	    ret = kernel.setArg(2, c_mem_obj);
+	    ret = kernel.setArg(1, c_mem_obj);
 
 		cl::Event event;
 

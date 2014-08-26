@@ -1,7 +1,8 @@
-__kernel void matAddKernel(__global const int *A,  __global const int *B, 
-                                    						__global int *C)
+__kernel void matAddKernel(__global const int *A, __global int *C)
 {
 	int i = get_global_id(0);
-	C[i] = (int) sqrt(sqrt ((float) (A[i]*A[i] + B[i]*B[i])) + sqrt ((float) A[i])/sqrt ((float) B[i]));
+	int n = get_global_size(0);
+	int b = n - A[i];
+	C[i] = (int) sqrt(sqrt ((float) (A[i]*A[i] + b*b)) + sqrt ((float) A[i])/sqrt ((float) b));
 }
 

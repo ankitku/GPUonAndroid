@@ -19,6 +19,6 @@
 
 #include "compute.h"
 
-void openCLAddMatrices (int *a, int *b, int *c, int *i);
+void openCLAddMatrices (int *a, int *c, int *i);
 
 #endif

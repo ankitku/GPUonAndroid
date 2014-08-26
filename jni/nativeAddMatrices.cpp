@@ -2,7 +2,7 @@
 #include <math.h>
 
 
-void nativeAddMatrices (int *a, int *b, int *c, int *info)
+void nativeAddMatrices (int *a, int *c, int *info)
 {
 	LOGI("\n\nStart nativeAddMatrices (i.e., CPU native plain C code)");
 
@@ -16,8 +16,9 @@ void nativeAddMatrices (int *a, int *b, int *c, int *info)
 	//run each element 300 times
 	for (int k = 0; k < 300; k++)
 		for (int i = 0; i < length; i++) {
+			int b = length - a[i];
 			c[i] = (int) sqrt(
-					sqrt(a[i] * a[i] + b[i] * b[i]) + sqrt(a[i]) / sqrt(b[i]));
+					sqrt(a[i] * a[i] + b*b) + sqrt(a[i]) / sqrt(b));
 		}
 
 	stopTimer = clock();

@@ -86,14 +86,14 @@ public class MatAddActivity extends Activity {
 		}
 	}
 
-	public static native int runOpenCL(int A[], int B[], int C[], int info[]);
+	public static native int runOpenCL(int A[], int C[], int info[]);
 
-	public static native int runNativeC(int A[], int B[], int C[], int info[]);
+	public static native int runNativeC(int A[], int C[], int info[]);
 
 	final int info[] = new int[2]; // Length, Execution time (ms)
 
 	LinearLayout layout;
-	int A[], B[], C[];
+	int A[], C[];
 	ImageView imageView;
 	TextView result, tv1, tv2, tv3;
 	String s1, s2, s3;
@@ -113,21 +113,17 @@ public class MatAddActivity extends Activity {
 										// /data/data/...assets
 
 		A = new int[N];
-		B = new int[N];
 		C = new int[N];
 		info[0] = N;
 
 		for (int i = 0; i < N; i++)
-		{
 			A[i] = i;
-			B[i] = N - i;
-		}
 
 		s1 = s2 = s3 = "";
 
 		for (int i = 0; i < N; i++) {
 			s1 += (A[i] + " ");
-			s2 += (B[i] + " ");
+			s2 += ((N - A[i]) + " ");
 		}
 
 		result.setText("Not added yet");
@@ -143,7 +139,7 @@ public class MatAddActivity extends Activity {
 	}
 
 	public void showOpenCLCompute(View v) {
-		runOpenCL(A, B, C, info);
+		runOpenCL(A, C, info);
 		result.setText("Matrix Addition, OpenCL, Processing time is " + info[1]
 				+ " ms");
 		s3 = "";
@@ -153,7 +149,7 @@ public class MatAddActivity extends Activity {
 	}
 
 	public void showNativeCCompute(View v) {
-		runNativeC(A, B, C, info);
+		runNativeC(A, C, info);
 		result.setText("Matrix Addition, NativeC, Processing time is "
 				+ info[1] + " ms");
 		s3 = "";

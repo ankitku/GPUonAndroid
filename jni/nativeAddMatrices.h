@@ -3,6 +3,6 @@
 
 #include "compute.h"
 
-void nativeAddMatrices (int *a, int *b, int *c, int *i);
+void nativeAddMatrices (int *a, int *c, int *i);
 
 #endif

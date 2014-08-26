@@ -84,34 +84,30 @@ Java_com_nkt_compute_OpenCLActivity_runNativeC(JNIEnv* env, jclass clazz, jobjec
 }
 
 extern "C" jint
-Java_com_nkt_compute_MatAddActivity_runOpenCL(JNIEnv* env, jclass clazz, jintArray A, jintArray B, jintArray C, jintArray info)
+Java_com_nkt_compute_MatAddActivity_runOpenCL(JNIEnv* env, jclass clazz, jintArray A, jintArray C, jintArray info)
 {
 	jint* a = env->GetIntArrayElements(A, NULL);
-	jint* b = env->GetIntArrayElements(B, NULL);
 	jint* c = env->GetIntArrayElements(C, NULL);
 	jint* i = env->GetIntArrayElements(info, NULL);
 
-	openCLAddMatrices((int *) a, (int *) b, (int *) c, (int *) i);
+	openCLAddMatrices((int *) a, (int *) c, (int *) i);
 
     env->ReleaseIntArrayElements(info, a, 0);
-    env->ReleaseIntArrayElements(info, b, 0);
     env->ReleaseIntArrayElements(info, c, 0);
     env->ReleaseIntArrayElements(info, i, 0);
 
 }
 
 extern "C" jint
-Java_com_nkt_compute_MatAddActivity_runNativeC(JNIEnv* env, jclass clazz, jintArray A, jintArray B, jintArray C, jintArray info)
+Java_com_nkt_compute_MatAddActivity_runNativeC(JNIEnv* env, jclass clazz, jintArray A, jintArray C, jintArray info)
 {
 	jint* a = env->GetIntArrayElements(A, NULL);
-	jint* b = env->GetIntArrayElements(B, NULL);
 	jint* c = env->GetIntArrayElements(C, NULL);
 	jint* i = env->GetIntArrayElements(info, NULL);
 
-	nativeAddMatrices((int *) a, (int *) b, (int *) c, (int *) i);
+	nativeAddMatrices((int *) a, (int *) c, (int *) i);
 
     env->ReleaseIntArrayElements(info, a, 0);
-    env->ReleaseIntArrayElements(info, b, 0);
     env->ReleaseIntArrayElements(info, c, 0);
     env->ReleaseIntArrayElements(info, i, 0);
 
